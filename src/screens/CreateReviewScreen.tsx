@@ -47,7 +47,7 @@ export const CreateReviewScreen: React.FC<Props> = ({
         <IconButton name="x" onPress={() => navigation.goBack()} />
       ),
     });
-  }, [shop]); //shopが変更されたタイミングでnavigationを起動
+  }, [shop]); //shopが変更されたタイミングでuseEffectが実行される
 
   // const onSubmit = async () => {
   //   if (!text || !imageUri) {

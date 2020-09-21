@@ -1,7 +1,9 @@
 import * as firebase from "firebase";
 import "firebase/firestore";
+import "firebase/auth";
 import { Shop } from "../types/shop";
 import Constants from "expo-constants";
+import { User, initialUser } from "../types/user";
 
 if (!firebase.apps.length) {
   firebase.initializeApp(Constants.manifest.extra.firebase);
@@ -21,4 +23,26 @@ export const getShops = async () => {
     console.log(err);
     return [];
   }
+};
+
+export const signIn = async () => {
+  const userCredential = await firebase.auth().signInAnonymously();
+  const { uid } = userCredential.user;
+  const userDoc = await firebase.firestore().collection("users").doc(uid).get();
+  if (!userDoc.exists) {
+    await firebase.firestore().collection("users").doc(uid).set(initialUser);
+    return {
+      ...initialUser,
+      id: uid,
+    } as User;
+  } else {
+    return {
+      id: uid,
+      ...userDoc.data(),
+    };
+  }
+};
+
+export const updateUser = async (userId: string, params: any) => {
+  await firebase.firestore().collection("users").doc(userId).update(params);
 };

@@ -19,7 +19,7 @@ export const MainTabNavigator = () => {
         component={HomeStackNavigator}
         options={{
           tabBarLabel: "Home",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }: { color: any; size: any }) => (
             <Feather name="home" color={color} size={size} />
           ),
         }}
@@ -29,7 +29,7 @@ export const MainTabNavigator = () => {
         component={UserScreen}
         options={{
           tabBarLabel: "User",
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }: { color: any; size: any }) => (
             <Feather name="user" color={color} size={size} />
           ),
         }}
